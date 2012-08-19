@@ -25,3 +25,12 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# IntelliJ
+.idea
+*.iml
+*.ipr
+atlassian-ide-plugin.xml
+
+# Incoming, intermediate and processed data
+data
