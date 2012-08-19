@@ -5,6 +5,8 @@ Manages an RDF repository for Zoo Wizard.
 
 The current version creates an initial RDF datasource for the http://www.zoochat.com/zoos/ list of zoos.
 
+For more information, read [My Blog](http://blog.publysher.nl/2012/08/using-rdf-to-populate-zoowizard-case.html)
+
 
 Setup
 -----
