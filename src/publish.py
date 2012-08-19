@@ -74,6 +74,12 @@ def create_subgraph(graph, item):
     for triple in graph.triples((item, None, None)):
         g.add(triple)
 
+    for triple in graph.triples((URIRef(item + '#facebook'), None, None)):
+        g.add(triple)
+
+    for triple in graph.triples((URIRef(item + '#twitter'), None, None)):
+        g.add(triple)
+
     for triple in graph.triples((None, None, item)):
         g.add(triple)
 
