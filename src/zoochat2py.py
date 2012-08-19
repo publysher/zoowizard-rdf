@@ -64,7 +64,7 @@ def main(input=constants.ZOOCHAT_INPUT, output=constants.ZOOCHAT_PICKLE):
 
     if not os.path.exists(os.path.dirname(output)):
         os.makedirs(os.path.dirname(output))
-    os.makedirs(os.path.dirname(output))
+
     with open(output, 'w') as f:
         pickle.dump(zoolist, f)
 
