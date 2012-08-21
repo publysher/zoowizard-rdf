@@ -8,6 +8,7 @@ from rdflib.term import URIRef, Literal
 import constants
 from namespaces import ZOOCHAT, VOID, DC, SCHEMA, FOAF
 import namespaces
+import utils
 
 __author__ = 'yigalduppen'
 
@@ -15,21 +16,13 @@ log = logging.getLogger(__name__)
 DATASET = URIRef(ZOOCHAT)
 DATADUMP = URIRef(ZOOCHAT['/all.nt'])
 
-def read_graph():
-    log.info("Reading graph %s", constants.ZOOCHAT_RDF)
-    g = rdflib.Graph()
-    namespaces.init_bindings(g)
-    g.parse(constants.ZOOCHAT_RDF)
-    log.info("Read %d tuples", len(g))
-    return g
-
-
 def describe_dataset(g):
     # describe dataset itself
     # See http://www.w3.org/TR/void/
     g.add((DATASET, RDFS.label, Literal("List of All Zoos Worldwide")))
     g.add((DATASET, RDF.type, VOID.Dataset))
     g.add((DATASET, DC.title, Literal("List of All Zoos Worldwide")))
+    g.add((DATASET, DC.created, Literal(datetime.date(2012,8,19))))
     g.add((DATASET, DC.description, Literal(
         "RDF description extracted from http://www.zoochat.com/zoos")))
     g.add((DATASET, DC.source, URIRef('http://www.zoochat.com/zoos')))
@@ -110,7 +103,7 @@ def write_dump(g):
 
 
 def publish():
-    g = read_graph()
+    g = utils.read_graph(constants.ZOOCHAT_RDF)
     describe_dataset(g)
     write_rdf_files(g)
     write_dump(g)
