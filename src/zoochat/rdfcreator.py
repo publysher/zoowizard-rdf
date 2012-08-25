@@ -6,6 +6,7 @@ import rdflib
 import logging
 from rdflib.namespace import RDF, RDFS, SKOS
 from rdflib.term import Literal, URIRef
+import sys
 import constants
 from namespaces import ZOOCHAT, SCHEMA, FOAF
 import namespaces
@@ -67,24 +68,16 @@ def init_graph():
     return g
 
 
-def main(input=constants.ZOOCHAT_PICKLE, output=constants.ZOOCHAT_RDF):
-    zoolist = []
-    try:
-        with open(input) as f:
-            zoolist = pickle.load(f)
-    except IOError, e:
-        log.error("You need to generate the pickled file by using zoochat2py.")
-        log.exception(e)
+def main(input, out):
+    with open(input) as f:
+        zoolist = pickle.load(f)
 
     g = init_graph()
     fill_graph(zoolist, g)
 
-    if not os.path.exists(os.path.dirname(output)):
-        os.makedirs(os.path.dirname(output))
-    g.serialize(output, format='xml')
-    log.info("RDF Graph written to %s", output)
+    g.serialize(out, format='xml')
 
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
-    main()
+    main(sys.argv[1], sys.stdout)

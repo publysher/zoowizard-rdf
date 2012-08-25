@@ -6,6 +6,7 @@ import os
 import pickle
 import bs4
 import logging
+import sys
 import constants
 
 log = logging.getLogger(__name__)
@@ -53,24 +54,17 @@ def parse_zoolist(inp):
                 twitter=get_href(cells[6]),
                 map=get_href(cells[7], 'http://www.zoochat.com'),
                 )
-            log.info("Found %s", zoo)
+            log.debug("Found %s", zoo)
             zoolist.append(zoo)
 
     return zoolist
 
 
-def main(input=constants.ZOOCHAT_INPUT, output=constants.ZOOCHAT_PICKLE):
+def main(input, out):
     zoolist = parse_zoolist(input)
-
-    if not os.path.exists(os.path.dirname(output)):
-        os.makedirs(os.path.dirname(output))
-
-    with open(output, 'w') as f:
-        pickle.dump(zoolist, f)
-
-    log.info("Written zoo list to %s", output)
+    pickle.dump(zoolist, out)
 
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
-    main()
+    main(sys.argv[1], sys.stdout)

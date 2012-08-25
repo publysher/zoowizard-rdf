@@ -5,6 +5,7 @@ import os
 import rdflib
 from rdflib.namespace import RDF, RDFS
 from rdflib.term import URIRef, Literal
+import sys
 import constants
 from namespaces import ZOOCHAT, VOID, DC, SCHEMA, FOAF
 import namespaces
@@ -102,13 +103,13 @@ def write_dump(g):
     g.serialize(format='nt', destination=filename)
 
 
-def publish():
-    g = utils.read_graph(constants.ZOOCHAT_RDF)
+def publish(input):
+    g = utils.read_graph(input)
     describe_dataset(g)
     write_rdf_files(g)
     write_dump(g)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    publish()
+    publish(sys.argv[1])
   

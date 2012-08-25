@@ -20,13 +20,13 @@ dataclean:
 
 # ZooChat files
 $(ZC_MED): $(ZC_IN)
-	./bin/py -m zoochat2py
+	./bin/py -m zoochat.webparser $< > $@
 
 $(ZC_OUT): $(ZC_MED)
-	./bin/py -m zoochat2rdf
+	./bin/py -m zoochat.rdfcreator $< > $@
 
 $(ZC_RDF) $(ZC_DUMP) $(ZC_DS): $(ZC_OUT)
-	./bin/py -m publish
+	./bin/py -m zoochat.publish $<
 
 # Publishing
 
