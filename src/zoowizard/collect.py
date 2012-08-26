@@ -157,6 +157,8 @@ def derive_dbpedia(zoochat, zoowizard):
                   .replace("wiki", "resource"))
 
         zoowizard_id = zoowizard.value(None, OWL.sameAs, id)
+
+        zoowizard.add((zoowizard_id, namespaces.FOAF.isPrimaryTopicOf, wikipage))
         zoowizard.add((zoowizard_id, OWL.sameAs, dbpage))
 
 
