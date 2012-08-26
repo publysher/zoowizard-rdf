@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import os
 import pickle
 
 import rdflib
@@ -7,7 +6,6 @@ import logging
 from rdflib.namespace import RDF, RDFS, SKOS
 from rdflib.term import Literal, URIRef
 import sys
-import constants
 from namespaces import ZOOCHAT, SCHEMA, FOAF
 import namespaces
 
@@ -29,8 +27,6 @@ def fill_graph(zoolist, g):
         id = URIRef(ZOOCHAT['/' + zoo['zoochat_id']])
 
         g.add((id, RDFS.label, Literal(name)))
-        g.add((id, SKOS.prefLabel, Literal(name)))
-        g.add((id, SCHEMA.name, Literal(name)))
 
         g.add((id, RDF.type, SCHEMA.Zoo))
         g.add((id, RDF.type, FOAF.Organization))
@@ -38,7 +34,6 @@ def fill_graph(zoolist, g):
         for alt in zoo['alternative_names']:
             g.add((id, SKOS.altLabel, Literal(alt)))
 
-        g.add((id, FOAF.based_near, Literal(zoo['country'])))
         g.add((id, SCHEMA.addressCountry, Literal(zoo['country'])))
 
         if zoo['website']:

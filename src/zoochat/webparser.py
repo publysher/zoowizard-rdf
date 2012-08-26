@@ -4,6 +4,7 @@ Generates a pickled list of dictionaries by parsing the ZooChat HTML.
 """
 import os
 import pickle
+import urllib
 import bs4
 import logging
 import sys
@@ -39,6 +40,7 @@ def parse_zoolist(inp):
                     return None
                 href = link.get('href')
                 if href:
+                    href = href.replace(" ", "+")
                     return base + href
                 return None
 
